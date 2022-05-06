@@ -1,0 +1,25 @@
+{
+  "module": {
+    "type": "commonjs"
+  },
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "baseUrl": "./src",
+    "paths": {
+      "^components/*": ["./components/*"],
+      "^pages/*": ["./pages/*"],
+      "pages": ["./pages/index.ts"],
+      "^mocks/*": ["./mocks/*"],
+      "^utils/*": ["./utils/*"],
+      "utils": ["./utils/index.ts"]
+    },
+    "transform": null,
+    "target": "es2018"
+  },
+  "sourceMaps": true
+}

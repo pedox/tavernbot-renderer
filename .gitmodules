@@ -1,0 +1,3 @@
+[submodule "tavernbot-resources"]
+	path = public/resources
+	url = https://github.com/pedox/tavernbot-resources
