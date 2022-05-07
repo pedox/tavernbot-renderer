@@ -12,7 +12,7 @@ import { APP_URL } from "utils/template";
 type Props = {
   from: number;
   to: number;
-  cdp: number;
+  // cdp: number;
   exps: any;
   exp_summary: any;
   exp_amount: number;
@@ -32,7 +32,7 @@ type Props = {
 const Weapon = ({
   from,
   to,
-  cdp,
+  // cdp,
   weapon,
   exps,
   exp_summary,

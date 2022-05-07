@@ -10,9 +10,7 @@ type IGlobalPuppet = {
 
 const globalPuppet: IGlobalPuppet = { cluster: null };
 
-const baseRenderer = process.env.BASE_RENDERER || "http://localhost:3000";
-
-let options = {
+const options = {
   args: [
     "--ignore-certificate-errors",
     "--no-sandbox",

@@ -8,7 +8,7 @@ const downloadImage = async ({ icon, target, baseUrl }) => {
     return readFileSync(imagePath);
   }
   const writer = createWriteStream(imagePath);
-  return await new Promise((resolve, reject) => {
+  return await new Promise((resolve) => {
     axios({
       method: "get",
       url: `${baseUrl}/${icon}`,
@@ -18,7 +18,7 @@ const downloadImage = async ({ icon, target, baseUrl }) => {
         response.data.pipe(writer);
         writer.on("error", (err) => {
           console.log(`failed download ${icon} not found`);
-          unlink(imagePath, () => {});
+          unlink(imagePath, (e) => console.log(e));
           resolve(err);
         });
         writer.on("close", () => {
@@ -27,7 +27,7 @@ const downloadImage = async ({ icon, target, baseUrl }) => {
       })
       .catch(() => {
         console.log(`failed download ${icon} not found`);
-        unlink(imagePath, () => {});
+        unlink(imagePath, (e) => console.log(e));
         resolve(false);
       });
   });
@@ -52,7 +52,7 @@ export const downloadImageV2 = async ({ name, target, imageUrl }) => {
         response.data.pipe(writer);
         writer.on("error", (err) => {
           console.log(`failed download ${name} not found`);
-          unlink(imagePath, () => {});
+          unlink(imagePath, (e) => console.log(e));
           resolve(err);
         });
         writer.on("close", () => {
@@ -61,7 +61,7 @@ export const downloadImageV2 = async ({ name, target, imageUrl }) => {
       })
       .catch(() => {
         console.log(`failed download ${name} not found`);
-        unlink(imagePath, () => {});
+        unlink(imagePath, (e) => console.log(e));
         resolve(false);
       });
   });

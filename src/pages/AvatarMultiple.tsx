@@ -9,12 +9,12 @@ import { APP_URL } from "utils/template";
 
 type Props = {
   avatars: IAvatar[];
-  uid: string;
+  gameId: string;
   nickname: string;
-  ar: number;
+  level: number;
 };
 
-const AvatarMultiple = ({ uid, nickname, ar, avatars }: Props) => {
+const AvatarMultiple = ({ gameId, nickname, level, avatars }: Props) => {
   return (
     <div
       className={clsx("relative min-h[550px] element font-genshin text-white", {
@@ -90,7 +90,7 @@ const AvatarMultiple = ({ uid, nickname, ar, avatars }: Props) => {
         ))}
       </div>
       <div className="p-6">
-        <Footer nickname={nickname} uid={uid} ar={ar} />
+        <Footer nickname={nickname} gameId={gameId} level={level} />
       </div>
     </div>
   );

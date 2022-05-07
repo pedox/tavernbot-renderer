@@ -4,8 +4,6 @@ import { numberFormat } from "utils";
 import { APP_URL } from "utils/template";
 import { getRarityClassName } from "./Items";
 
-type Props = {};
-
 const AscensionItemsComponent = ({
   phase,
   item,

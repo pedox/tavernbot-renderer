@@ -40,18 +40,18 @@ type Props = {
 };
 
 const AbyssLeaderboard = (props: Props) => {
-  let {
+  const {
     name,
     leaderboard,
     participated,
     userSize,
-    filter,
     avatars,
     most_stars,
     period: { start_time, end_time },
     server,
     noData,
   } = props;
+  let { filter } = props;
 
   if (!filter) filter = [];
   if (!avatars) filter = [];
@@ -122,7 +122,7 @@ const AbyssLeaderboard = (props: Props) => {
       <div className="p-6 relative flex items-end">
         <Footer withInfo={false} />
         <p className="italic opacity-90 flex-1 text-right text-sm">
-          Every journey has it's final day. Don't rush! - Zhongli
+          Every journey has it&apos;s final day. Don&apos;t rush! - Zhongli
         </p>
       </div>
     </div>

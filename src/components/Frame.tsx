@@ -106,7 +106,7 @@ export const GIBookFrame = ({
   children,
 }) => {
   return (
-    <div className="relative" style={{ width, minHeight }}>
+    <div className={clsx("relative", className)} style={{ width, minHeight }}>
       <div className="absolute w-full h-full">
         <div
           className="absolute w-10 bottom-14 top-10 left-0"

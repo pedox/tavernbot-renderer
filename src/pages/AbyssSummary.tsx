@@ -24,7 +24,7 @@ const AbyssSummary = ({ abyss, notFound }: Props) => {
         <div className="bg-black p-2 mt-2 rounded-md bg-opacity-40 flex items-center">
           <ExclamationIcon className="text-yellow-500 w-5" />{" "}
           <p className="text-xs ml-2">
-            You're using Registration v1, using registration v2 for full
+            You&apos;re using Registration v1, using registration v2 for full
             detailed spiral abyss team comp.
           </p>
         </div>

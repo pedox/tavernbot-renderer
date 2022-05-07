@@ -10,16 +10,16 @@ import { APP_URL } from "utils/template";
 type Props = {
   notFound: boolean;
   avatar: IAvatar;
-  uid: string;
+  gameId: string;
   nickname: string;
-  ar: number;
+  level: number;
 };
 
 const AvatarSingle = ({
   notFound = false,
-  uid,
+  gameId,
   nickname,
-  ar,
+  level,
   avatar,
 }: Props) => {
   if (notFound) {
@@ -31,7 +31,7 @@ const AvatarSingle = ({
         />
         <h1 className="text-2xl">Character not found</h1>
         <p className="mt-2">
-          Maybe you're typos, or character isn't in your lists.
+          Maybe you&apos;re typos, or character isn&apos;t in your lists.
         </p>
       </div>
     );
@@ -102,7 +102,7 @@ const AvatarSingle = ({
         }}
       />
       <div className="p-6 pt-0">
-        <Footer nickname={nickname} uid={uid} ar={ar} />
+        <Footer nickname={nickname} gameId={gameId} level={level} />
       </div>
     </div>
   );

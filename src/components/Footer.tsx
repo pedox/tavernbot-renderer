@@ -2,16 +2,16 @@ import React from "react";
 
 type Props = {
   withInfo?: boolean;
-  uid?: string;
+  gameId?: string;
   nickname?: string;
-  ar?: number;
+  level?: number;
 };
 
 const Footer = ({
   withInfo = true,
-  uid = "",
+  gameId = "",
   nickname = "",
-  ar = 0,
+  level = 0,
 }: Props) => {
   return (
     <div className="footer">
@@ -29,10 +29,10 @@ const Footer = ({
         <div className="text-right flex flex-col justify-end">
           {nickname && (
             <p>
-              {nickname} - AR{ar}
+              {nickname} - AR{level}
             </p>
           )}
-          {uid && <p>{uid}</p>}
+          {gameId && <p>{gameId}</p>}
         </div>
       </div>
     </div>

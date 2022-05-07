@@ -96,7 +96,7 @@ const rawTemplate = ({ baseUrl, body }) => `
 )}</style></head><body class='bg-black'>${body}</body></html>
 `;
 
-export const baseTemplate = (template, data = {}) => {
+export const baseTemplate = (template) => {
   const baseUrl = APP_URL;
   const result = rawTemplate({ baseUrl, body: template });
   return result;

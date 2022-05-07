@@ -113,7 +113,7 @@ const AbyssPage: React.FC<IAbyss> = ({
           {children}
         </div>
         <div className="relative">
-          <Footer nickname={nickname} uid={gameId} ar={level} />
+          <Footer nickname={nickname} gameId={gameId} level={level} />
         </div>
       </div>
     </div>

@@ -111,7 +111,7 @@ const CharacterExp = ({
 
               {stats.notice && (
                 <p className="py-1" style={{ fontSize: 10 }}>
-                  *There's may have small rounding errors
+                  *There&apos;s may have small rounding errors
                 </p>
               )}
 

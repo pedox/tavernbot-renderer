@@ -6,9 +6,12 @@ import React from "react";
 
 type Props = {
   avatars: IAvatar[];
+  gameId: string;
+  nickname: string;
+  level: number;
 };
 
-const AvatarLists = ({ avatars }: Props) => {
+const AvatarLists = ({ avatars, gameId, nickname, level }: Props) => {
   return (
     <div className="bg-gray-900">
       <GIGlobalFrame
@@ -25,7 +28,7 @@ const AvatarLists = ({ avatars }: Props) => {
             ))}
           </div>
         </div>
-        <Footer uid="808830458" nickname="Wakazuhacau" />
+        <Footer gameId={gameId} nickname={nickname} level={level} />
       </GIGlobalFrame>
     </div>
   );
