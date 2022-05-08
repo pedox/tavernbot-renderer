@@ -82,6 +82,7 @@ export type IAbyss = {
   floors: any;
   guilds: string[];
   region: string;
+  rank?: number;
 };
 
 const AbyssPage: React.FC<IAbyss> = ({

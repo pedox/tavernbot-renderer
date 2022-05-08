@@ -108,11 +108,12 @@ const AbyssLeaderboard = (props: Props) => {
             <p className="mb-1">
               {participated} people has participated in this leaderboard
             </p>
-            {filter.length === 0 && (
+            {/* {filter.length === 0 && (
               <p>
-                {participated} of {userSize} people has no battle record.
+                {userSize - participated} of {userSize} people has no battle
+                record.
               </p>
-            )}
+            )} */}
           </div>
         ) : (
           <Fragment />
@@ -378,7 +379,7 @@ const RenderLeaderboard = ({ leaderboard, avatars, most_stars, me }: Props) => {
           <div className="text-right px-2 w-[17%]">*Star Collected</div>
         </div>
         {leaderboard.map((item, index) => (
-          <RenderList {...item} key={item.userId} rank={index + 1} me={me} />
+          <RenderList {...item} key={item.userId} rank={item?.rank} me={me} />
         ))}
       </div>
       <div className="flex justify-between text-xs mt-3">
