@@ -17,13 +17,31 @@ type Props = {
   abyss: IAbyss;
   floors: number[];
   avatars: IAvatar[];
+  timezone: string;
+  tzCode: string;
+  serverTzCode: string;
+  server: string;
 };
 
-const AbyssTeam = ({ abyss, avatars, floors = [] }: Props) => {
-  const finalFloors = (abyss ? [...abyss.floors] : [])
-    .filter((item) =>
-      floors.length > 0 ? floors.indexOf(item.floor) > -1 : true
-    )
+const AbyssTeam = ({
+  abyss,
+  avatars,
+  floors = [],
+  timezone,
+  tzCode,
+  server,
+  serverTzCode,
+  gameId,
+}: Props) => {
+  let finalFloors = (abyss ? [...abyss.floors] : []).filter((item) =>
+    floors.length > 0 ? floors.indexOf(item.floor) > -1 : true
+  );
+
+  if (finalFloors.length === 0 && floors.length > 0) {
+    finalFloors = abyss ? [...abyss.floors] : [];
+  }
+
+  finalFloors
     .reverse()
     .map((item) => {
       item.chambers = item.chambers.map((item) => {
@@ -41,7 +59,12 @@ const AbyssTeam = ({ abyss, avatars, floors = [] }: Props) => {
     .slice(0, 4);
 
   return (
-    <AbyssPage {...abyss}>
+    <AbyssPage
+      {...abyss}
+      server={server}
+      serverTzCode={serverTzCode}
+      gameId={gameId}
+    >
       <div className="mt-1">
         <div className="absolute top-0 right-0 w-[250px]">
           <SummaryItem>
@@ -60,7 +83,7 @@ const AbyssTeam = ({ abyss, avatars, floors = [] }: Props) => {
 
         {abyss?.last_battle && abyss.last_battle > 0 ? (
           <div className="text-xs mt-1">
-            Last battle {timeFormat(abyss.last_battle)}
+            Last battle {timeFormat(abyss.last_battle, tzCode)} {timezone}
           </div>
         ) : (
           <Fragment />

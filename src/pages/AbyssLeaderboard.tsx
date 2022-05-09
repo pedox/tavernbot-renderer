@@ -31,6 +31,9 @@ type Props = {
   server: string;
   me?: string;
   noData?: boolean;
+  timezone: string;
+  tzCode: string;
+  serverTzCode: string;
   period: {
     schedule_id: number;
     start_time: string;
@@ -50,6 +53,9 @@ const AbyssLeaderboard = (props: Props) => {
     period: { start_time, end_time },
     server,
     noData,
+    tzCode,
+    timezone,
+    serverTzCode,
   } = props;
   let { filter } = props;
 
@@ -87,9 +93,12 @@ const AbyssLeaderboard = (props: Props) => {
           </div>
           <div className="text-right text-sm">
             <p className="mt-1">
-              ({server}) {dateFormat(start_time)} - {dateFormat(end_time)}
+              ({server}) {dateFormat(start_time, serverTzCode)} -{" "}
+              {dateFormat(end_time, serverTzCode)}
             </p>
-            <p className="mt-1">{timeFormat(dayjs().unix())}</p>
+            <p className="mt-1">
+              {timeFormat(dayjs().unix(), tzCode)} {timezone}
+            </p>
           </div>
         </div>
 

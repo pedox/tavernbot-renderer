@@ -14,12 +14,28 @@ type Props = {
   nickname: string;
   level: number;
   timezone: string;
+  tzCode: string;
+  serverTzCode: string;
   notFound?: boolean;
+  server?: string;
 };
 
-const AbyssSummary = ({ abyss, notFound }: Props) => {
+const AbyssSummary = ({
+  abyss,
+  notFound,
+  timezone,
+  tzCode,
+  server,
+  serverTzCode,
+  gameId,
+}: Props) => {
   return (
-    <AbyssPage {...abyss}>
+    <AbyssPage
+      {...abyss}
+      server={server}
+      serverTzCode={serverTzCode}
+      gameId={gameId}
+    >
       {!abyss.with_comps && (
         <div className="bg-black p-2 mt-2 rounded-md bg-opacity-40 flex items-center">
           <ExclamationIcon className="text-yellow-500 w-5" />{" "}
@@ -139,7 +155,7 @@ const AbyssSummary = ({ abyss, notFound }: Props) => {
 
       {abyss?.last_battle && abyss.last_battle > 0 ? (
         <div className="text-xs mt-1">
-          Last battle {timeFormat(abyss.last_battle)}
+          Last battle {timeFormat(abyss.last_battle, tzCode)} {timezone}
         </div>
       ) : (
         <Fragment />

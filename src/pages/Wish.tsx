@@ -8,11 +8,12 @@ import { APP_URL } from "utils/template";
 
 type Props = {
   lastUpdate: number;
+  tzCode: string;
   wishes: any;
   timezone: string;
 };
 
-const Wish = ({ lastUpdate, wishes, timezone }: Props) => {
+const Wish = ({ lastUpdate, wishes, timezone, tzCode }: Props) => {
   return (
     <GIGlobalFrame type="dark" width={800} className="bg-gray-800" withoutFrame>
       <div className="pb-4 min-h-[400px]">
@@ -24,15 +25,27 @@ const Wish = ({ lastUpdate, wishes, timezone }: Props) => {
           <div className="flex-1">
             <h1 className="text-2xl flex-1">Wish Counter</h1>
             <div className="text-sm pt-1 opacity-75">
-              Last Update: {timeFormat(lastUpdate)} {timezone}
+              Last Update: {timeFormat(lastUpdate, tzCode)} {timezone}
             </div>
           </div>
         </div>
 
         <div className="flex flex-wrap -m-2">
-          <RenderGroupWish data={wishes["301"]} images="s_323901.png" />
-          <RenderGroupWish data={wishes["302"]} images="s_423101.png" />
-          <RenderGroupWish data={wishes["200"]} images="s_213201.png" />
+          <RenderGroupWish
+            data={wishes["301"]}
+            images="s_323901.png"
+            tzCode={tzCode}
+          />
+          <RenderGroupWish
+            data={wishes["302"]}
+            images="s_423101.png"
+            tzCode={tzCode}
+          />
+          <RenderGroupWish
+            data={wishes["200"]}
+            images="s_213201.png"
+            tzCode={tzCode}
+          />
         </div>
       </div>
       <p className="text-xs italic leading-relaxed mb-2">
@@ -51,7 +64,7 @@ const getColorTreshold = (value) => {
   return `hsl(${hue}, 85%, 45%)`;
 };
 
-const RenderGroupWish = ({ data, images }) => {
+const RenderGroupWish = ({ data, images, tzCode }) => {
   return (
     <div className="w-full p-2">
       <div className="p-4 rounded-lg relative overflow-hidden">
@@ -78,7 +91,10 @@ const RenderGroupWish = ({ data, images }) => {
                 ""
               )}
             </h2>
-            <h3 className="text-sm">Last Wish: {timeFormat(data.last_wish)}</h3>
+            <h3 className="text-sm">
+              Last Wish:{" "}
+              {data?.last_wish ? timeFormat(data.last_wish, tzCode) : "-"}
+            </h3>
           </div>
           <div className="flex flex-wrap">
             <div className="flex mt-4 w-full py-3">

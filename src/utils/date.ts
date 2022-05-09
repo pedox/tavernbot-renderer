@@ -1,9 +1,15 @@
 import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
-export const dateFormat = (time) => {
-  return dayjs.unix(time).format("DD MMM YYYY");
+export const dateFormat = (time, tzCode) => {
+  const format = "DD MMM YYYY";
+  return dayjs.unix(time).tz(tzCode).format(format);
 };
 
-export const timeFormat = (time) => {
-  return dayjs.unix(time).format("DD MMM YYYY HH:mm:ss");
+export const timeFormat = (time, tzCode) => {
+  const format = "DD MMM YYYY HH:mm:ss";
+  return dayjs.unix(time).tz(tzCode).format(format);
 };

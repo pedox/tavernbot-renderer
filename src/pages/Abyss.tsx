@@ -83,6 +83,8 @@ export type IAbyss = {
   guilds: string[];
   region: string;
   rank?: number;
+  server?: string;
+  serverTzCode?: string;
 };
 
 const AbyssPage: React.FC<IAbyss> = ({
@@ -92,6 +94,8 @@ const AbyssPage: React.FC<IAbyss> = ({
   gameId,
   level,
   children,
+  server,
+  serverTzCode,
 }) => {
   return (
     <div className="w-[800px] min-h-[400px] bg-[#3d3066] bg-contain relative text-white font-genshin">
@@ -108,7 +112,8 @@ const AbyssPage: React.FC<IAbyss> = ({
           <div>
             <div className="text-lg">Spiral Abyss Challenge Summary</div>
             <div className="text-sm opacity-70 mt-1.5">
-              {dateFormat(start_time)} - {dateFormat(end_time)}
+              {dateFormat(start_time, serverTzCode)} -{" "}
+              {dateFormat(end_time, serverTzCode)} ({server})
             </div>
           </div>
           {children}
