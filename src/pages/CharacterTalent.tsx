@@ -61,7 +61,7 @@ const CharacterTalent = ({ character, materials, summary }: Props) => {
                 image={
                   character.iconName
                     ? "avatars/" + character.iconName + ".png"
-                    : character.potrait
+                    : "items/" + character.potrait
                 }
                 className="!w-20 !h-20"
                 rarity={character.rarity}

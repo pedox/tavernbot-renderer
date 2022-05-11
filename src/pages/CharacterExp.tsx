@@ -35,6 +35,8 @@ const CharacterExp = ({
   materials_amount,
   wl,
 }: Props) => {
+  console.log("character.iconName", character.iconName);
+  console.log("character.potrait", character.potrait);
   return (
     <GIGlobalFrame className="bg-gray-800" withoutFrame width={945}>
       <div className="flex flex-col" style={{ minHeight: 480 }}>
@@ -57,7 +59,7 @@ const CharacterExp = ({
                       image={
                         character.iconName
                           ? "avatars/" + character.iconName + ".png"
-                          : character.potrait
+                          : "items/" + character.potrait
                       }
                       className="!w-20 !h-20"
                       rarity={character.rarity}
