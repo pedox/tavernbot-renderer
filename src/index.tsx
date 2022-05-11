@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import "dotenv/config";
 import express from "express";
 import { renderRouter } from "pages/index";
 import path from "path";
