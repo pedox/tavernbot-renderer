@@ -174,7 +174,7 @@ const CharacterExp = ({
               <em className="text-xs">*Based on World Level {wl}</em>
             </div>
 
-            {exps.length > 0 && (
+            {materials.length > 0 && (
               <div className="mb-6 pb-3">
                 <h2 className="mb-2">Material(s) Used</h2>
                 <div className="flex flex-wrap">
@@ -240,6 +240,21 @@ const CharacterExp = ({
           </div>
         </div>
       </div>
+      {materials.length > 0 && (
+        <div className="flex-1 flex flex-col mt-4 border-t border-white border-opacity-25">
+          <div className="text-center text-lg justify-center flex items-center mt-3">
+            <div>Grand Total : </div>
+            <div className="flex items-center ml-2">
+              <img
+                src={`${APP_URL}/resources/ui/Item_Mora.webp`}
+                className="w-7"
+              />
+              <p>{numberFormat(exp_amount + materials_amount)}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex items-end mt-4">
         <Footer withInfo={false} />
         <div className="flex-1 text-sm text-right opacity-70">
