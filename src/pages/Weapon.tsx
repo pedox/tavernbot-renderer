@@ -23,7 +23,7 @@ type Props = {
     base_attack: number;
     secondary: {
       label: string;
-      unity: string;
+      unit: string;
       value: number;
     };
   };

@@ -8,6 +8,7 @@ import AvatarMultiple from "./AvatarMultiple";
 import AvatarSingle from "./AvatarSingle";
 import CharacterExp from "./CharacterExp";
 import CharacterTalent from "./CharacterTalent";
+import Expedition from "./Expedition";
 import Weapon from "./Weapon";
 import Wish from "./Wish";
 
@@ -51,6 +52,10 @@ export const renderRouter = (req, res) => {
       break;
     case "WEAPON":
       outputHTML = ReactDOM.renderToString(<Weapon {...req.body.data} />);
+      break;
+
+    case "EXPEDITION":
+      outputHTML = ReactDOM.renderToString(<Expedition {...req.body.data} />);
       break;
   }
 
