@@ -28,6 +28,8 @@ const AbyssSummary = ({
   server,
   serverTzCode,
   gameId,
+  nickname,
+  level,
 }: Props) => {
   return (
     <AbyssPage
@@ -35,6 +37,8 @@ const AbyssSummary = ({
       server={server}
       serverTzCode={serverTzCode}
       gameId={gameId}
+      nickname={nickname}
+      level={level}
     >
       {!abyss.with_comps && (
         <div className="bg-black p-2 mt-2 rounded-md bg-opacity-40 flex items-center">

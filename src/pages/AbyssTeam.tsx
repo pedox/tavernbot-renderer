@@ -21,6 +21,9 @@ type Props = {
   tzCode: string;
   serverTzCode: string;
   server: string;
+  gameId: string;
+  nickname: string;
+  level: number;
 };
 
 const AbyssTeam = ({
@@ -32,6 +35,8 @@ const AbyssTeam = ({
   server,
   serverTzCode,
   gameId,
+  nickname,
+  level,
 }: Props) => {
   let finalFloors = (abyss ? [...abyss.floors] : []).filter((item) =>
     floors.length > 0 ? floors.indexOf(item.floor) > -1 : true
@@ -64,6 +69,8 @@ const AbyssTeam = ({
       server={server}
       serverTzCode={serverTzCode}
       gameId={gameId}
+      nickname={nickname}
+      level={level}
     >
       <div className="mt-1">
         <div className="absolute top-0 right-0 w-[250px]">
