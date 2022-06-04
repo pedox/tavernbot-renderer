@@ -1,6 +1,8 @@
+import DailyFarm from "components/DailyFarm";
 import React from "react";
 import ReactDOM from "react-dom/server";
 import AbyssLeaderboard from "./AbyssLeaderboard";
+import { AbyssSchedule } from "./AbyssSchedule";
 import AbyssSummary from "./AbyssSummary";
 import AbyssTeam from "./AbyssTeam";
 import AvatarLists from "./AvatarLists";
@@ -56,6 +58,14 @@ export const renderRouter = (req, res) => {
 
     case "EXPEDITION":
       outputHTML = ReactDOM.renderToString(<Expedition {...req.body.data} />);
+      break;
+    case "DAILY":
+      outputHTML = ReactDOM.renderToString(<DailyFarm {...req.body.data} />);
+      break;
+    case "ABYSS_SCHEDULE":
+      outputHTML = ReactDOM.renderToString(
+        <AbyssSchedule {...req.body.data} />
+      );
       break;
   }
 

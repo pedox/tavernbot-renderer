@@ -17,6 +17,10 @@ const assetPath = path.resolve("./public");
 console.log("serve asset path", assetPath);
 app.use(express.static(assetPath));
 
+app.get("/render", (req, res) => {
+  return res.json({ msg: "pong" });
+});
+
 app.post("/render", async (req, res) => {
   const isRaw = req.query.raw === "1";
   try {
