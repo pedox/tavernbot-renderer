@@ -1,13 +1,14 @@
 import clsx from "clsx";
+import { getRarityClassName } from "components/Items";
 import React from "react";
 import { APP_URL } from "utils/template";
-import Footer from "./Footer";
-import { GIGlobalFrame } from "./Frame";
-import { getRarityClassName } from "./Items";
+import Footer from "../components/Footer";
+import { GIGlobalFrame } from "../components/Frame";
 
 type Material = {
   items: Item[];
   farms: Farm[];
+  singleDay: boolean;
 };
 
 type Item = {
@@ -30,10 +31,12 @@ type Domain = {
   kind: string;
   region: string;
   materials: Material[];
+  singleDay: boolean;
 };
 
 type Props = {
   day: string;
+  singleDay: boolean;
   domains: Domain[];
 };
 
@@ -49,11 +52,37 @@ const hidden = [
   "w_5405",
 ];
 
+const DailyFarm = ({ day, domains, singleDay }: Props) => {
+  return (
+    <GIGlobalFrame width={singleDay ? 848 : 970}>
+      <div className="min-h-[500px] mb-6">
+        <div className="mb-4 flex items-center">
+          <div className="mr-2">
+            <img
+              src={`${APP_URL}/resources/ui/UI_NPCTopIcon_Adventurers.png`}
+              className="w-14"
+            />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-xl">Daily Material</h1>
+            <p>{day}</p>
+          </div>
+        </div>
+        {domains.map((item, index) => (
+          <DomainComponent key={index} {...item} singleDay={singleDay} />
+        ))}
+      </div>
+
+      <Footer withInfo={false} />
+    </GIGlobalFrame>
+  );
+};
+
 const compatName = (name: string) => {
   return name.replace(/^Philosophies of /g, "");
 };
 
-const MaterialComponent = ({ farms, items }: Material) => {
+const MaterialComponent = ({ farms, items, singleDay }: Material) => {
   return (
     <div className="flex-1 p-1">
       <div className="flex items-center flex-1 mb-2 border-b border-white border-opacity-25 pb-1">
@@ -96,8 +125,12 @@ const MaterialComponent = ({ farms, items }: Material) => {
                 <div className="p-0.5" key={index}>
                   <div
                     className={clsx(
-                      "text-sm w-[50px] h-[50px] flex items-center justify-center rounded-md overflow-hidden",
-                      getRarityClassName(item.rarity)
+                      "text-sm flex items-center justify-center rounded-md overflow-hidden",
+                      getRarityClassName(item.rarity),
+                      {
+                        "w-[60px] h-[60px]": singleDay,
+                        "w-[50px] h-[50px]": !singleDay,
+                      }
                     )}
                   >
                     <img
@@ -118,7 +151,7 @@ const MaterialComponent = ({ farms, items }: Material) => {
   );
 };
 
-const DomainComponent = ({ name, region, materials }: Domain) => {
+const DomainComponent = ({ name, region, materials, singleDay }: Domain) => {
   return (
     <div className="mb-2 bg-black bg-opacity-20 p-2 rounded-md">
       <div className="mb-1 flex items-center p-0.5">
@@ -129,37 +162,13 @@ const DomainComponent = ({ name, region, materials }: Domain) => {
       <div>
         <div className="flex bg-black bg-opacity-20 rounded-md p-1">
           {materials.map((item, index) => {
-            return <MaterialComponent key={index} {...item} />;
+            return (
+              <MaterialComponent key={index} {...item} singleDay={singleDay} />
+            );
           })}
         </div>
       </div>
     </div>
-  );
-};
-
-const DailyFarm = ({ day, domains }: Props) => {
-  return (
-    <GIGlobalFrame width={970}>
-      <div className="min-h-[500px] mb-6">
-        <div className="mb-4 flex items-center">
-          <div className="mr-2">
-            <img
-              src={`${APP_URL}/resources/ui/UI_NPCTopIcon_Adventurers.png`}
-              className="w-14"
-            />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-xl">Daily Material</h1>
-            <p>{day}</p>
-          </div>
-        </div>
-        {domains.map((item, index) => (
-          <DomainComponent key={index} {...item} />
-        ))}
-      </div>
-
-      <Footer withInfo={false} />
-    </GIGlobalFrame>
   );
 };
 
