@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import AscensionItemsComponent from "components/AscensionItemsComponent";
+import DailyDomains, { Domain } from "components/DailyDomains";
 import ExpItemsComponent from "components/ExpItemsComponent";
 import Footer from "components/Footer";
 import { GIGlobalFrame } from "components/Frame";
@@ -27,6 +28,7 @@ type Props = {
       value: number;
     };
   };
+  domains: Domain[];
 };
 
 const Weapon = ({
@@ -40,6 +42,7 @@ const Weapon = ({
   materials,
   materials_amount,
   stats,
+  domains,
 }: Props) => {
   return (
     <GIGlobalFrame className="bg-gray-800" withoutFrame width={919}>
@@ -262,6 +265,8 @@ const Weapon = ({
           </div>
         </div>
       </div>
+
+      <DailyDomains domains={domains} />
 
       <div className="flex-1 flex flex-col mt-4 border-t border-white border-opacity-25">
         {exps.length > 0 && (

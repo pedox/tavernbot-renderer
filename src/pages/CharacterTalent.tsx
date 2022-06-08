@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import DailyDomains, { Domain } from "components/DailyDomains";
 import Footer from "components/Footer";
 import { GIGlobalFrame } from "components/Frame";
 import Item, { GameItem, GameItemSmall } from "components/Items";
@@ -11,9 +12,10 @@ type Props = {
   character: any;
   materials: any;
   summary: any;
+  domains: Domain[];
 };
 
-const CharacterTalent = ({ character, materials, summary }: Props) => {
+const CharacterTalent = ({ character, materials, summary, domains }: Props) => {
   const getMaxedMaterials = materials.sort((a, b) => b.length - a.length)[0];
 
   const sumMora = materials.reduce((prev, item) => {
@@ -135,6 +137,8 @@ const CharacterTalent = ({ character, materials, summary }: Props) => {
       </div>
 
       {materials.length > 1 && materialSummary}
+
+      <DailyDomains domains={domains} />
 
       <div className="flex-1 flex flex-col mt-4 border-t border-white border-opacity-25">
         <div className="text-center text-lg justify-center flex items-center mt-3">
