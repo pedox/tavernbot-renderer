@@ -102,7 +102,7 @@ const AbyssPage: React.FC<IAbyss> = ({
       <div
         className="h-full absolute top-0 bg-no-repeat bg-contain bg-top left-0 w-full"
         style={{
-          backgroundImage: `url(${APP_URL}/resources/ui/abyss.png)`,
+          backgroundImage: `url(${APP_URL}/resources/ui/abyss-2.png)`,
         }}
       />
       <div className="bg-black absolute top-0 bottom-0 w-full bg-opacity-30" />

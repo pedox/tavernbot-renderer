@@ -35,10 +35,14 @@ type Props = {
   tzCode: string;
   serverTzCode: string;
   period: {
-    schedule_id: number;
-    start_time: string;
-    end_time: string;
+    scheduleId: number;
+    half: number;
+    openTime: string;
+    openTimeUnix: number;
+    closeTime: string;
+    closeTimeUnix: number;
     region: string;
+    tz: string;
   };
 };
 
@@ -47,12 +51,10 @@ const AbyssLeaderboard = (props: Props) => {
     name,
     leaderboard,
     participated,
-    userSize,
     avatars,
     most_stars,
-    period: { start_time, end_time },
+    period: { openTimeUnix, closeTimeUnix },
     server,
-    noData,
     tzCode,
     timezone,
     serverTzCode,
@@ -65,6 +67,11 @@ const AbyssLeaderboard = (props: Props) => {
 
   const usingFilter = filter.length > 0;
 
+  let noData = false;
+  if (leaderboard.length === 0) {
+    noData = true;
+  }
+
   return (
     <div className="bg-[#153857] w-[915px] relative text-white font-genshin flex flex-col">
       <div
@@ -73,7 +80,7 @@ const AbyssLeaderboard = (props: Props) => {
           backgroundImage: `url(${APP_URL}/resources/ui/UI_Tower_Bg2.png)`,
         }}
       />
-      <div className="relative z-10 px-6 flex-1 w-full min-h-[400px]">
+      <div className="relative z-10 px-6 flex-1 w-full min-h-[500px]">
         <div className="flex pt-6">
           <div>
             <img
@@ -93,8 +100,8 @@ const AbyssLeaderboard = (props: Props) => {
           </div>
           <div className="text-right text-sm">
             <p className="mt-1">
-              ({server}) {dateFormat(start_time, serverTzCode)} -{" "}
-              {dateFormat(end_time, serverTzCode)}
+              ({server}) {dateFormat(openTimeUnix, serverTzCode)} -{" "}
+              {dateFormat(closeTimeUnix, serverTzCode)}
             </p>
             <p className="mt-1">
               {timeFormat(dayjs().unix(), tzCode)} {timezone}
@@ -399,7 +406,7 @@ const RenderLeaderboard = ({ leaderboard, avatars, most_stars, me }: Props) => {
         <div className="text-right">*Star collected based on floor 9 to 12</div>
       </div>
       <RenderMostStar mostStars={most_stars} />
-      <RenderMostUsedCharacter avatars={avatars} />
+      {avatars.length > 0 && <RenderMostUsedCharacter avatars={avatars} />}
     </Fragment>
   );
 };
