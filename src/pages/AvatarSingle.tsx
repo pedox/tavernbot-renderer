@@ -78,7 +78,7 @@ const AvatarSingle = ({
             </p>
           </div>
           <div className="flex flex-nowrap overflow-hidden">
-            <div className="w-16 relative rounded-lg overflow-hidden">
+            <div className="w-16 h-16 relative rounded-lg overflow-hidden">
               <Item
                 rarity={avatar.weapon.rarity}
                 image={`/weapons/${avatar.weapon.icon}`}
@@ -87,7 +87,7 @@ const AvatarSingle = ({
                 R{avatar.weapon.affix_level}
               </div>
             </div>
-            <div className="pl-3">
+            <div className="pl-3 flex-1">
               <h3 className="text-sm">{avatar.weapon.name} </h3>
               <Rarity rarity={avatar.weapon.rarity} width={14} />
               <p className="text-sm mt-1">Level: {avatar.weapon.level} </p>

@@ -4,7 +4,7 @@ import ExclamationIcon from "components/icons/Exclamation";
 import { getRarityClassName } from "components/Items";
 import Title from "components/Title";
 import dayjs from "dayjs";
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import { numberFormat } from "utils";
 import { dateFormat, timeFormat } from "utils/date";
 import { APP_URL } from "utils/template";
@@ -153,6 +153,37 @@ interface IRenderList extends IAbyss {
   user?: { username: string };
 }
 
+const RenderRegion = ({ region }) => {
+  const name = useMemo(() => {
+    switch (region) {
+      case "os_asia":
+        return "Asia";
+      case "os_euro":
+        return "Europe";
+      case "os_usa":
+        return "America";
+      case "os_cht":
+        return "SAR";
+      default:
+        return "";
+    }
+  }, [region]);
+
+  return (
+    <span
+      style={{ fontSize: 10 }}
+      className={clsx("rounded px-1", {
+        "bg-orange-700": region === "os_asia",
+        "bg-blue-800": region === "os_euro",
+        "bg-violet-800": region === "os_usa",
+        "bg-gray-700": region === "os_cht",
+      })}
+    >
+      {name}
+    </span>
+  );
+};
+
 const RenderList = (prop: IRenderList) => {
   const {
     notIn10,
@@ -168,6 +199,7 @@ const RenderList = (prop: IRenderList) => {
     total_win_times,
     max_floor,
     total_star,
+    region,
   } = prop;
   return (
     <Fragment>
@@ -178,7 +210,7 @@ const RenderList = (prop: IRenderList) => {
       <div
         className={clsx(
           `mb-1 py-2 bg-black bg-opacity-50 flex rounded-lg
-                      border border-white border-opacity-10 relative`
+          border border-white border-opacity-10 relative`
         )}
         style={{
           boxShadow: userId === me ? "0px 0px 13px 2px #2697ce" : null,
@@ -198,7 +230,8 @@ const RenderList = (prop: IRenderList) => {
           <RenderAvatar item={prop} />
           <div className="text-sm flex flex-col justify-center self-start ml-2 mt-1">
             <p>
-              {nickname} - AR{level}
+              {nickname} - AR{level}{" "}
+              {region && <RenderRegion region={region} />}
             </p>
             <div style={{ fontSize: 11 }}>
               ({user.username}){" "}
