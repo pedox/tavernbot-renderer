@@ -36,8 +36,8 @@ const AscensionItemsComponent = ({
           ))}
         </div>
       )}
-      {item.items
-        .sort((a, b) => a.rarity - b.rarity)
+      {item.costItems
+        .sort((a, b) => a.rank - b.rank)
         .map((item, index) => {
           return (
             <div
@@ -50,14 +50,14 @@ const AscensionItemsComponent = ({
             >
               <div
                 className={clsx(
-                  "p-1 rounded-md flex justify-center items-center ",
+                  "rounded-md flex justify-center items-center ",
                   { "w-8 h-8": !summary },
-                  { "w-14 h-14 p-2": summary },
-                  getRarityClassName(item.rarity)
+                  { "w-14 h-14": summary },
+                  getRarityClassName(item.rank)
                 )}
               >
                 <img
-                  src={`${APP_URL}/resources/items/${item.id}.png`}
+                  src={`${APP_URL}/resources/materials/UI_ItemIcon_${item.id}.png`}
                   className="h-full"
                 />
               </div>
@@ -67,7 +67,7 @@ const AscensionItemsComponent = ({
                   { "text-xs py-1": summary }
                 )}
               >
-                {item.amount}
+                {item.qty}
               </p>
             </div>
           );
@@ -77,7 +77,7 @@ const AscensionItemsComponent = ({
           hidden: summary,
         })}
       >
-        <p>{numberFormat(item.amount)}</p>
+        <p>{numberFormat(item.coinCost)}</p>
         <img
           src={`${APP_URL}/resources/ui/Item_Mora.webp`}
           className="w-6 ml-1"

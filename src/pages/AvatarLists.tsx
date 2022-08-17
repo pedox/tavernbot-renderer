@@ -64,7 +64,7 @@ const AvatarLists = ({ avatars, gameId, nickname, level }: Props) => {
             {[...avatars]
               .sort((a, b) => a.element.localeCompare(b.element))
               .sort((a, b) => b.rarity - a.rarity)
-              .sort((a, b) => (a.name === "Traveler" ? -1 : 0))
+              .sort((a) => (a.name === "Traveler" ? -1 : 0))
               .map((item, index) => (
                 <Avatar key={index} {...item} />
               ))}

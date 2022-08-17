@@ -427,7 +427,7 @@ const RenderLeaderboard = ({ leaderboard, avatars, most_stars, me }: Props) => {
           <div className="text-right px-2 w-[10%]">Floor</div>
           <div className="text-right px-2 w-[17%]">*Star Collected</div>
         </div>
-        {leaderboard.map((item, index) => (
+        {leaderboard.map((item) => (
           <RenderList {...item} key={item.userId} rank={item?.rank} me={me} />
         ))}
       </div>

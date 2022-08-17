@@ -25,7 +25,7 @@ const ExpItemsComponent = ({ items, small = false }) => {
                 <>
                   <div
                     className={clsx(
-                      "rounded-t-lg w-16 h-16 flex justify-center items-center p-2",
+                      "rounded-t-lg w-16 h-16 flex justify-center items-center",
                       getRarityClassName(item.rarity)
                     )}
                   >

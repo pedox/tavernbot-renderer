@@ -19,7 +19,7 @@ const CharacterTalent = ({ character, materials, summary, domains }: Props) => {
   const getMaxedMaterials = materials.sort((a, b) => b.length - a.length)[0];
 
   const sumMora = materials.reduce((prev, item) => {
-    return prev + item.reduce((prev, item) => prev + item.cost, 0);
+    return prev + item.reduce((prev, item) => prev + item.coinCost, 0);
   }, 0);
 
   const materialSummary = (
@@ -60,19 +60,15 @@ const CharacterTalent = ({ character, materials, summary, domains }: Props) => {
           <div>
             <div className="relative w-20">
               <Item
-                image={
-                  character.iconName
-                    ? "avatars/" + character.iconName + ".png"
-                    : "items/" + character.potrait
-                }
+                image={"avatars/" + character.icon + ".png"}
                 className="!w-20 !h-20"
-                rarity={character.rarity}
+                rarity={character.rank}
               />
               <img
                 src={`${APP_URL}/resources/ui/element_${character.element}.png`}
                 className="absolute left-1 top-1 w-6"
               />
-              {character.upcoming && (
+              {character.beta && (
                 <span
                   style={{ fontSize: 9 }}
                   className="absolute bottom-1 left-1 rounded-md bg-yellow-600 px-1"
@@ -84,7 +80,7 @@ const CharacterTalent = ({ character, materials, summary, domains }: Props) => {
             <Rarity
               width={16}
               className="justify-center"
-              rarity={character.rarity}
+              rarity={character.rank}
             />
           </div>
 
@@ -115,14 +111,14 @@ const CharacterTalent = ({ character, materials, summary, domains }: Props) => {
                   Lv.{item.level}
                 </div>
                 <div className="flex flex-wrap flex-1 justify-end border-r border-white border-opacity-20 pr-1">
-                  {item.items.map((item, index) => (
+                  {item.costItems.map((item, index) => (
                     <div className="mr-2" key={index}>
                       <GameItemSmall item={item} />
                     </div>
                   ))}
                 </div>
                 <div className="text-xs w-24 text-right justify-end flex items-center">
-                  <span>{numberFormat(item.cost)}</span>
+                  <span>{numberFormat(item.coinCost)}</span>
                   <div>
                     <img
                       src={`${APP_URL}/resources/ui/Item_Mora.webp`}
@@ -155,9 +151,6 @@ const CharacterTalent = ({ character, materials, summary, domains }: Props) => {
 
       <div className="flex items-end mt-4">
         <Footer withInfo={false} />
-        <div className="flex-1 text-sm text-right opacity-70">
-          Credits: genshin.honeyhunterworld.com
-        </div>
       </div>
     </GIGlobalFrame>
   );
@@ -168,17 +161,17 @@ const MaterialSummary = ({ item, index }) => {
     const materials = [];
     let cost = 0;
     for (const itm of item) {
-      cost += itm.cost;
-      for (const mat of itm.items) {
+      cost += itm.coinCost;
+      for (const mat of itm.costItems) {
         const exist = materials.findIndex((f) => f.id === mat.id);
         if (exist === -1) {
           materials.push({ ...mat });
         } else {
-          materials[exist].amount += mat.amount;
+          materials[exist].qty += mat.qty;
         }
       }
     }
-    return { materials: materials.sort((a, b) => b.rarity - a.rarity), cost };
+    return { materials: materials.sort((a, b) => b.rank - a.rank), cost };
   }, [item]);
 
   const from = item[0].level;

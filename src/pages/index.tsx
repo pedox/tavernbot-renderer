@@ -5,6 +5,7 @@ import AbyssLeaderboard from "./AbyssLeaderboard";
 import AbyssSchedule, { AbyssScheduleSingle } from "./AbyssSchedule";
 import AbyssSummary from "./AbyssSummary";
 import AbyssTeam from "./AbyssTeam";
+import AbyssTeams from "./AbyssTeams";
 import AvatarLists from "./AvatarLists";
 import AvatarMultiple from "./AvatarMultiple";
 import AvatarSingle from "./AvatarSingle";
@@ -74,6 +75,10 @@ export const renderRouter = (req, res) => {
       outputHTML = ReactDOM.renderToString(
         <AbyssScheduleSingle {...req.body.data} detailed />
       );
+      break;
+
+    case "ABYSS_TEAMCOPMPS":
+      outputHTML = ReactDOM.renderToString(<AbyssTeams {...req.body.data} />);
       break;
   }
 

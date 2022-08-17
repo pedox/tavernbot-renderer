@@ -39,13 +39,15 @@ export const GameItem = ({ item }) => {
       <div
         className={clsx(
           "w-12 h-12 p-1 flex items-center justify-center",
-          getRarityClassName(item.rarity)
+          getRarityClassName(item.rank)
         )}
       >
-        <img src={`${APP_URL}/resources/items/${item?.id}.png`} />
+        <img
+          src={`${APP_URL}/resources/materials/UI_ItemIcon_${item?.id}.png`}
+        />
       </div>
       <div className="text-xs text-center bg-black bg-opacity-50 absolute bottom-0 w-full">
-        {item.amount}
+        {item.qty}
       </div>
     </div>
   );
@@ -56,16 +58,18 @@ export const GameItemSmall = ({ item }) => {
     <div className="bg-black bg-opacity-25 flex overflow-hidden rounded-lg">
       <div
         className={clsx(
-          "w-8 h-8 p-1 flex items-center justify-center",
-          getRarityClassName(item.rarity)
+          "w-8 h-8 flex items-center justify-center",
+          getRarityClassName(item.rank)
         )}
       >
-        <img src={`${APP_URL}/resources/items/${item?.id}.png`} />
+        <img
+          src={`${APP_URL}/resources/materials/UI_ItemIcon_${item?.id}.png`}
+        />
       </div>
       <div
         className={clsx("text-xs flex items-center justify-center px-1 w-8")}
       >
-        {item.amount}
+        {item.qty}
       </div>
     </div>
   );

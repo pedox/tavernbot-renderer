@@ -8,6 +8,7 @@ import { getRarityClassName } from "components/Items";
 import Rarity from "components/Rarity";
 import React, { Fragment } from "react";
 import { numberFormat } from "utils";
+import propName from "utils/propName";
 import { APP_URL } from "utils/template";
 
 type Props = {
@@ -20,14 +21,7 @@ type Props = {
   materials: any;
   materials_amount: number;
   weapon: any;
-  stats: {
-    base_attack: number;
-    secondary: {
-      label: string;
-      unit: string;
-      value: number;
-    };
-  };
+  stats: any;
   domains: Domain[];
 };
 
@@ -64,11 +58,11 @@ const Weapon = ({
                   <div
                     className={clsx(
                       "bg-opacity-50 w-20 h-20 overflow-hidden rounded-md relative",
-                      getRarityClassName(weapon.rarity)
+                      getRarityClassName(weapon.rank)
                     )}
                   >
                     <img
-                      src={`${APP_URL}/resources/items/${weapon.id}.png`}
+                      src={`${APP_URL}/resources/weapons/${weapon.icon}.png`}
                       className="w-20"
                     />
                     {weapon.upcoming && (
@@ -83,7 +77,7 @@ const Weapon = ({
                   <Rarity
                     width={16}
                     className="justify-center"
-                    rarity={weapon.rarity}
+                    rarity={weapon.rank}
                   />
                 </div>
                 <div className="pl-3 flex-1">
@@ -91,17 +85,26 @@ const Weapon = ({
                   <div className="mt-1 text-xs w-full">
                     <div className="flex mb-2">
                       <div className="flex-1">Base ATK:</div>{" "}
-                      <div>{stats ? stats.base_attack : "??"}</div>
-                    </div>
-                    {stats && stats.secondary.label !== "none" && (
-                      <div className="flex">
-                        <div className="flex-1">{stats.secondary.label}:</div>{" "}
-                        <div>
-                          {parseFloat(stats.secondary.value.toFixed(1))}
-                          {stats.secondary.unit}
-                        </div>
+                      <div>
+                        {stats
+                          ? Math.round(stats.FIGHT_PROP_BASE_ATTACK)
+                          : "??"}
                       </div>
-                    )}
+                    </div>
+                    {stats &&
+                      Object.keys(stats)
+                        .filter((key) => key !== "FIGHT_PROP_BASE_ATTACK")
+                        .map((key) => (
+                          <div className="flex" key={key}>
+                            <div className="flex-1">{propName[key]}:</div>{" "}
+                            <div>
+                              {key === "FIGHT_PROP_ELEMENT_MASTERY"
+                                ? Math.round(stats[key])
+                                : (stats[key] * 100).toFixed(1)}
+                              {key !== "FIGHT_PROP_ELEMENT_MASTERY" && "%"}
+                            </div>
+                          </div>
+                        ))}
                   </div>
                 </div>
               </div>
@@ -137,7 +140,7 @@ const Weapon = ({
                   <h2 className="mb-2">Crystal(s) Forging</h2>
                   <div>
                     {exp_summary
-                      .sort((a, b) => b.rarity - a.rarity)
+                      .sort((a, b) => b.rank - a.rank)
                       .map((item, index) => {
                         return (
                           <div className="flex items-center" key={index}>
@@ -149,7 +152,7 @@ const Weapon = ({
                               <div
                                 className={clsx(
                                   "w-8 h-8 flex justify-center items-center p-1",
-                                  getRarityClassName(item.rarity)
+                                  getRarityClassName(item.rank)
                                 )}
                               >
                                 <img
@@ -202,7 +205,7 @@ const Weapon = ({
                 <div className="flex flex-wrap">
                   <AscensionItemsComponent
                     phase={false}
-                    item={{ items: materials }}
+                    item={{ costItems: materials }}
                     summary
                     className="mb-2"
                   />
@@ -285,9 +288,6 @@ const Weapon = ({
 
       <div className="flex items-end mt-4">
         <Footer withInfo={false} />
-        <div className="flex-1 text-sm text-right opacity-70">
-          Credits: genshin.honeyhunterworld.com
-        </div>
       </div>
     </GIGlobalFrame>
   );

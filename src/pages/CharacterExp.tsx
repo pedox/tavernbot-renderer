@@ -6,6 +6,7 @@ import Item from "components/Items";
 import Rarity from "components/Rarity";
 import React, { Fragment } from "react";
 import { numberFormat } from "utils";
+import propName from "utils/propName";
 import { APP_URL } from "utils/template";
 
 type Props = {
@@ -56,19 +57,15 @@ const CharacterExp = ({
                 <div>
                   <div className="relative w-20">
                     <Item
-                      image={
-                        character.iconName
-                          ? "avatars/" + character.iconName + ".png"
-                          : "items/" + character.potrait
-                      }
+                      image={"avatars/" + character.icon + ".png"}
                       className="!w-20 !h-20"
-                      rarity={character.rarity}
+                      rarity={character.rank}
                     />
                     <img
                       src={`${APP_URL}/resources/ui/element_${character.element}.png`}
                       className="absolute left-1 top-1 w-6"
                     />
-                    {character.upcoming && (
+                    {character.beta && (
                       <span
                         style={{ fontSize: 9 }}
                         className="absolute bottom-1 left-1 rounded-md bg-yellow-600 px-1"
@@ -80,7 +77,7 @@ const CharacterExp = ({
                   <Rarity
                     width={16}
                     className="justify-center"
-                    rarity={character.rarity}
+                    rarity={character.rank}
                   />
                 </div>
                 <div className="pl-3 flex-1">
@@ -90,21 +87,23 @@ const CharacterExp = ({
                       <div className="flex-1">HP:</div>{" "}
                       <div>
                         {stats.notice && "*"}
-                        {numberFormat(stats.Base_HP)}
+                        {numberFormat(Math.round(stats.FIGHT_PROP_BASE_HP))}
                       </div>
                     </div>
                     <div className="flex mb-2">
                       <div className="flex-1">ATK:</div>{" "}
                       <div>
                         {stats.notice && "*"}
-                        {numberFormat(stats.Base_ATK)}
+                        {numberFormat(Math.round(stats.FIGHT_PROP_BASE_ATTACK))}
                       </div>
                     </div>
                     <div className="flex mb-2">
                       <div className="flex-1">DEF:</div>{" "}
                       <div>
                         {stats.notice && "*"}
-                        {numberFormat(stats.Base_DEF)}
+                        {numberFormat(
+                          Math.round(stats.FIGHT_PROP_BASE_DEFENSE)
+                        )}
                       </div>
                     </div>
                   </div>
@@ -119,13 +118,18 @@ const CharacterExp = ({
 
               <div className="text-xs border-t border-white border-opacity-25 pt-2">
                 {Object.entries(stats)
-                  .filter(([itm]) => !/Lv|Base_|notice/.test(itm))
+                  .filter(([itm]) => !/FIGHT_PROP_BASE_/.test(itm))
                   .map(([item, value]) => (
                     <div className="flex mb-2" key={item}>
                       <div className="flex-1 capitalize">
-                        {item.replace(/_/g, " ")}:
+                        {propName[item] || "-"}:
                       </div>{" "}
-                      <div>{value}</div>
+                      <div>
+                        {item === "FIGHT_PROP_ELEMENT_MASTERY"
+                          ? Math.round(value)
+                          : (value * 100).toFixed(1)}
+                        {item !== "FIGHT_PROP_ELEMENT_MASTERY" && "%"}
+                      </div>
                     </div>
                   ))}
               </div>
@@ -180,7 +184,7 @@ const CharacterExp = ({
                 <div className="flex flex-wrap">
                   <AscensionItemsComponent
                     phase={false}
-                    item={{ items: materials }}
+                    item={{ costItems: materials }}
                     summary
                     className="mb-0"
                   />
@@ -257,9 +261,6 @@ const CharacterExp = ({
 
       <div className="flex items-end mt-4">
         <Footer withInfo={false} />
-        <div className="flex-1 text-sm text-right opacity-70">
-          Credits: genshin.honeyhunterworld.com
-        </div>
       </div>
     </GIGlobalFrame>
   );
