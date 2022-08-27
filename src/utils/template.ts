@@ -82,6 +82,9 @@ body {
 .element.Cryo:before {
   filter: hue-rotate(0deg) saturate(100%);
 }
+.element.Dendro:before {
+  filter: hue-rotate(-60deg) saturate(100%);
+}
 `;
 
 const minify = (str) => {

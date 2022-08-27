@@ -7,36 +7,32 @@ import { GIGlobalFrame } from "../components/Frame";
 
 type Material = {
   items: Item[];
-  farms: Farm[];
+  reward: Item[];
+  unreleased: boolean;
   singleDay: boolean;
 };
 
 type Item = {
   id?: string;
   name?: string;
-  slug?: string;
-  upcoming?: boolean;
-  rarity?: number;
-};
-
-type Farm = {
-  id: string;
-  name: string;
-  imageUrl: string;
-  rarity: number;
+  icon?: string;
+  beta?: boolean;
+  rank?: number;
 };
 
 type Domain = {
   name: string;
   kind: string;
   region: string;
-  materials: Material[];
+  items: Material[];
+  unreleased: boolean;
   singleDay: boolean;
 };
 
 type Props = {
   day: string;
   singleDay: boolean;
+  unreleased: boolean;
   domains: Domain[];
 };
 
@@ -52,7 +48,7 @@ const hidden = [
   "w_5405",
 ];
 
-const DailyFarm = ({ day, domains, singleDay }: Props) => {
+const DailyFarm = ({ day, domains, singleDay, unreleased }: Props) => {
   return (
     <GIGlobalFrame width={singleDay ? 848 : 970}>
       <div className="min-h-[500px] mb-6">
@@ -69,7 +65,12 @@ const DailyFarm = ({ day, domains, singleDay }: Props) => {
           </div>
         </div>
         {domains.map((item, index) => (
-          <DomainComponent key={index} {...item} singleDay={singleDay} />
+          <DomainComponent
+            key={index}
+            {...item}
+            singleDay={singleDay}
+            unreleased={unreleased}
+          />
         ))}
       </div>
 
@@ -82,12 +83,17 @@ const compatName = (name: string) => {
   return name.replace(/^Philosophies of /g, "");
 };
 
-const MaterialComponent = ({ farms, items, singleDay }: Material) => {
+const MaterialComponent = ({
+  reward,
+  items,
+  singleDay,
+  unreleased,
+}: Material) => {
   return (
     <div className="flex-1 p-1">
       <div className="flex items-center flex-1 mb-2 border-b border-white border-opacity-25 pb-1">
         <div className="flex">
-          {farms.map((item, index) => {
+          {reward.map((item, index) => {
             return (
               <div
                 key={index}
@@ -103,30 +109,35 @@ const MaterialComponent = ({ farms, items, singleDay }: Material) => {
                 }}
               >
                 <img
-                  src={`${APP_URL}/resources/items/${item.id}.png`}
+                  src={`${APP_URL}/resources/materials/${item.icon}.png`}
                   className="max-w-full max-h-full"
                 />
               </div>
             );
           })}
         </div>
-        <div className="text-xs flex-1 pl-2">{compatName(farms[2].name)}</div>
+        <div className="text-xs flex-1 pl-2">{compatName(reward[2].name)}</div>
       </div>
 
       <div className="w-full">
         <div className="flex flex-wrap flex-1 w-full -m-0.5">
           {items
-            // .filter((m) => m.upcoming == false)
+            .filter((m) => {
+              if (unreleased) {
+                return true;
+              }
+              return m.beta !== true;
+            })
             .filter((m) => hidden.indexOf(m.id) === -1)
-            .filter((m) => !/^traveler_/.test(m.slug))
-            .sort((a, b) => b.rarity - a.rarity)
+            .filter((m) => !/Player(Girl|Boy)$/.test(m.icon))
+            .sort((a, b) => b.rank - a.rank)
             .map((item, index) => {
               return (
                 <div className="p-0.5" key={index}>
                   <div
                     className={clsx(
                       "text-sm flex items-center justify-center rounded-md overflow-hidden",
-                      getRarityClassName(item.rarity),
+                      getRarityClassName(item.rank),
                       {
                         "w-[60px] h-[60px]": singleDay,
                         "w-[50px] h-[50px]": !singleDay,
@@ -134,11 +145,9 @@ const MaterialComponent = ({ farms, items, singleDay }: Material) => {
                     )}
                   >
                     <img
-                      src={
-                        item.id
-                          ? `${APP_URL}/resources/items/${item.id}.png`
-                          : `${APP_URL}/resources/items/${item.slug}_face.png`
-                      }
+                      src={`${APP_URL}/resources/${
+                        /EquipIcon/.test(item.icon) ? "weapons" : "avatars"
+                      }/${item.icon}.png`}
                       className="max-w-full max-h-full"
                     />
                   </div>
@@ -151,7 +160,13 @@ const MaterialComponent = ({ farms, items, singleDay }: Material) => {
   );
 };
 
-const DomainComponent = ({ name, region, materials, singleDay }: Domain) => {
+const DomainComponent = ({
+  name,
+  region,
+  items,
+  singleDay,
+  unreleased,
+}: Domain) => {
   return (
     <div className="mb-2 bg-black bg-opacity-20 p-2 rounded-md">
       <div className="mb-1 flex items-center p-0.5">
@@ -161,9 +176,14 @@ const DomainComponent = ({ name, region, materials, singleDay }: Domain) => {
       </div>
       <div>
         <div className="flex bg-black bg-opacity-20 rounded-md p-1">
-          {materials.map((item, index) => {
+          {items.map((item, index) => {
             return (
-              <MaterialComponent key={index} {...item} singleDay={singleDay} />
+              <MaterialComponent
+                key={index}
+                {...item}
+                singleDay={singleDay}
+                unreleased={unreleased}
+              />
             );
           })}
         </div>
