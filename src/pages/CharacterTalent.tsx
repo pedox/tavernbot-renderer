@@ -31,7 +31,7 @@ const CharacterTalent = ({ character, materials, summary, domains }: Props) => {
           materials.length > 1,
       })}
     >
-      <h2 className="mb-2">Meterial Summary</h2>
+      <h2 className="mb-2">Material Summary</h2>
       <div className="flex flex-wrap -m-1">
         {summary.map((item, index) => (
           <div
