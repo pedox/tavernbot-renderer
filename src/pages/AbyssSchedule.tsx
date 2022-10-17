@@ -207,7 +207,7 @@ const RenderMonster = ({
             <div key={index} className="p-1 flex flex-row items-center">
               <div className="w-14 h-14 bg-gray-500 overflow-hidden rounded relative">
                 <img
-                  src={`${APP_URL}/resources/enemies/${item.id}.png`}
+                  src={`${APP_URL}/resources/enemies/${item.id}.webp`}
                   className="max-w-full max-h-full"
                 />
                 <div className="absolute bg-black bg-opacity-75 bottom-0 left-0 w-full text-center text-sm">
